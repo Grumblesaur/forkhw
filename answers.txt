@@ -1,0 +1,20 @@
+James Murphy
+CPSC 405-02
+forkhw
+
+1. If the variable's value is set before the fork, both the parent and the
+child inherit the value of the variable, but each process receives their own
+copy/instance of the variable, which are changed independently of each
+other. If a process with lots of variables and data structures is forked,
+it might take a noticeable amount of time to transfer them over.
+
+2. If a process opens a file and is then forked, both the parent and the
+child can access the file concurrently (though perhaps it could be blocked
+from one via a lock), and unless the parent waits for the child or has
+other computational work to do that is sufficiently involved, the parent
+will write and the child will write afterward.
+
+3. Unless the parent process has a lot of computational work to do which the
+child process is exempt from doing, the parent will reliably go first,
+followed by the child. The only way that doesn't involve excessive source
+code rigmarole is to use wait().
